@@ -1,0 +1,26 @@
+<div class="container" align="center">
+  <h1>Users</h1>
+</div>
+<hr>
+<div class="container">
+  <div class="row">
+    <% @users.each do |u| %>
+    <div class=" col-sm-6 col-md-4" >
+      <div class="panel panel-default">
+        <div class="panel-heading" align="center">
+          <%= gravatar_for u %>
+          <h3><%= link_to "#{u.username.upcase}", user_path(u) %></h3>
+        </div>
+        <div class="panel-body" align="center">
+          <h5><%= u.email %></h5>
+          <hr>
+          <h5>Posts <span class="label label-success"><%= u.posts.length %></span></h5>
+          <hr>
+          <%= link_to 'Edit', edit_user_path(u), class: "btn btn-primary" %>
+          <%= link_to 'Delete', user_path(u), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

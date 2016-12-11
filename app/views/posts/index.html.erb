@@ -1,0 +1,46 @@
+<div class="container" align="center">
+  <h1>Bulletin Board</h1>
+  <%= link_to 'Post to Bulletin Board', new_post_path, class: "btn btn-primary btn-success" %>
+</div>
+<hr>
+<div class="container" align="center">
+
+
+  <div class="row">
+    <% if @posts.length > 0 %>
+    <% @posts.each do |p| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="panel panel-default">
+
+        <div class="panel-heading" align="center">
+          <div>
+
+          </div>
+          <div>
+            <h1 class="panel-title"><%= link_to "#{p.title}", post_path(p) %></h1>
+            <small><%= time_ago_in_words(p.created_at) %> ago</small><br/>
+
+          </div>
+        </div>
+        <div class="panel-body" align="center">
+          <p>
+            <%= p.description %>
+          </p>
+          <hr>
+          <small>by <%= link_to "#{p.user.username}", user_path(p.user) %></small>
+          <hr>
+            <%= link_to 'Edit', edit_post_path(p), class: "btn btn-primary" %>
+            <%= link_to 'Delete', post_path(p), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-primary btn-danger" %>
+        </div>
+
+      </div>
+    </div>
+    <% end %>
+    <% else %>
+      <h2>No posts yet.</h2>
+    <% end %>
+  </div>
+
+
+
+</div>

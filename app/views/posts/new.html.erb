@@ -1,0 +1,17 @@
+<% if @post.errors.any? %>
+<div class="container">
+  <div class="alert alert-danger">
+    <%= @post.errors.full_messages do |msg| %>
+    <ul>
+      <li><%= msg %></li>
+    </ul>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+<div class="container" align="center">
+  <h1>Post to the Bulletin Board</h1>
+</div>
+<hr>
+<%= render 'form' %>
