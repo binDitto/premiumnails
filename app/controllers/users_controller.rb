@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+
   end
 
   def new
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @posts = @user.posts.paginate(:page => params[:page], :per_page => 3)
   end
 
   def destroy

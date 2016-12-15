@@ -2,7 +2,18 @@ class PostsController < ApplicationController
   before_action :set_post, only: [ :edit, :update, :show, :destroy ]
 
   def index
-    @posts = Post.all
+    @posts = Post.paginate(:page => params[:page], :per_page => 6)
+
+    @posts.each do |p|
+      @new = p.comments.create(comment_params)
+      @new.user = current_user if current_user
+      if @new.save
+        flash.now[:success] = "Thanks for commenting"
+      else
+        flash.now[:danger] = "Comment failed"
+      end
+    end
+
   end
 
   def new
@@ -19,6 +30,9 @@ class PostsController < ApplicationController
       flash[:danger] = "Your post didn't go through"
       render 'new'
     end
+
+
+
   end
 
   def edit
@@ -54,5 +68,8 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :description)
     end
 
+    def comment_params
+      params.permit(:description, :user, :post)
+    end
 
 end

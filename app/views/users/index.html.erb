@@ -15,9 +15,14 @@
           <h5><%= u.email %></h5>
           <hr>
           <h5>Posts <span class="label label-success"><%= u.posts.length %></span></h5>
-          <hr>
-          <%= link_to 'Edit', edit_user_path(u), class: "btn btn-primary" %>
-          <%= link_to 'Delete', user_path(u), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+          <% if logged_in? && current_user == u %>
+            <hr>
+            <%= link_to 'Edit', edit_user_path(u), class: "btn btn-primary" %>
+            <%= link_to 'Delete', user_path(u), method: :delete,
+            data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          <% end %>
+          
         </div>
       </div>
     </div>
