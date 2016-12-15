@@ -10,8 +10,18 @@
   </p>
   <small>Created <%= time_ago_in_words(@post.created_at) %> ago</small>
   <hr>
-  <% if logged_in? && current_user == @post.user %>
-    <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-primary" %>
-    <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-primary btn-danger" %>
-  <% end %>
+    <ul class="comments">
+      <li>
+        <%= @post.comments.each do |comment| %>
+          <small><%= comment.user.username %>:</small>
+          <br/> <%= comment.description %>
+        <% end %>
+        </li>
+    </ul>
+  <hr>
+
+    <% if logged_in? && current_user == @post.user %>
+      <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-primary" %>
+      <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-primary btn-danger" %>
+    <% end %>
 </div>

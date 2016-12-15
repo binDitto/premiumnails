@@ -1,36 +1,33 @@
 class CommentsController < ApplicationController
-  def index
-
-  end
-
-  def show
-
-  end
-
-  def new
-    @comment = Comment.new()
-  end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.new(secure_params)
+    @comment.post = Post.find(params[:post_id])
     @comment.user = current_user if current_user
-    if @comment.save
-      flash.now[:success] = "You've made a comment on #{@comment.post.title}"
-    else
-      flash.now[:danger] = "Comment failed to post"
-    end
-  end
 
-  def update
+    if @comment.save
+      flash[:success] = "Thanks for commenting"
+      respond_to do |format|
+        format.html { redirect_to posts_path }
+        format.js #we'll use this later for AJAX!
+      end
+    else
+      flash[:danger] = "Comment failed to go through"
+      redirect_to posts_path
+    end
 
   end
 
   def destroy
-
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    flash[:danger] = "comment deleted"
+    redirect_to posts_path
   end
 
   private
-    def comment_params
+    def secure_params
       params.require(:comment).permit(:description, :user)
     end
+
 end

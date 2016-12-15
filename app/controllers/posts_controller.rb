@@ -3,17 +3,6 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.paginate(:page => params[:page], :per_page => 6)
-
-    @posts.each do |p|
-      @new = p.comments.create(comment_params)
-      @new.user = current_user if current_user
-      if @new.save
-        flash.now[:success] = "Thanks for commenting"
-      else
-        flash.now[:danger] = "Comment failed"
-      end
-    end
-
   end
 
   def new
