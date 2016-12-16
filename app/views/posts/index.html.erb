@@ -37,19 +37,24 @@
           <hr>
           <small>by <%= link_to "#{p.user.username}", user_path(p.user) %></small>
 
-          <hr>
-          <button class="showcomments btn btn-default"> Show Comments </button>
+
           <% if p.comments.length > 0 %>
 
           <br/>
-              <ul class="showlist list-group" align="left">
+              <ul class="list-group">
+                <hr>
+                <button class="showcomments btn btn-default" align="center"> Show Comments </button>
                 <% p.comments.each do |comment| %>
-                  <li class="list-group-item">
+                  <li class="list-group-item showlist">
                       <% args= (comment.user == current_user) ? "danger" : "primary" %>
                       <small class="pull-left label label-<%= args %>"><%= comment.user.username %>:</small>
                       <small class="pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
                       <br/> <%= comment.description %>
-                      
+                      <% if logged_in? && comment.user == current_user %>
+                        <%= link_to 'delete', [p, comment], data: { confirm: 'Are you sure?'},
+                                                            method: :delete,
+                                                            class: "label label-danger" %>
+                      <% end %>
                   </li>
                 <% end %>
               </ul>

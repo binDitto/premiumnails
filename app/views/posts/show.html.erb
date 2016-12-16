@@ -11,12 +11,15 @@
   <small>Created <%= time_ago_in_words(@post.created_at) %> ago</small>
   <hr>
     <ul class="comments">
+      <% @post.comments.each do |comment| %>
       <li>
-        <%= @post.comments.each do |comment| %>
           <small><%= comment.user.username %>:</small>
           <br/> <%= comment.description %>
-        <% end %>
-        </li>
+          <%= link_to 'Delete', [@post, comment], method: :delete,
+                                                  data: { confirm: "Are you sure?" }, 
+                                                  class: "label label-danger" %>
+      </li>
+      <% end %>
     </ul>
   <hr>
 

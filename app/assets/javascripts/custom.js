@@ -2,11 +2,11 @@ $(document).ready(function(){
   $(".showlist").hide();
 
   $(".showcomments").on('click', function(){
-    $(".showlist").toggle(200);
+    $(this).parent().find(".showlist").toggle(100);
   });
 
   $(".enterlist").on('click', function(){
-    $(".showlist").show();
+    $(this).parent().find(".showlist").show();
   });
 
 });
