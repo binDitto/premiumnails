@@ -1,0 +1,28 @@
+<div class="container" align="center">
+  <h3>Categories</h3>
+    <% if logged_in? %>
+      <%= link_to 'Add a Category', new_category_path, class: "btn btn-success" %>
+    <% end %>
+</div>
+
+<hr>
+
+<div class="container" align="center">
+  <%= will_paginate @categories %>
+    <div class="row">
+      <% if @categories.length > 0 %>
+        <% @categories.each do |cat| %>
+          <div class="col-sm-6 col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading" align="center">
+                <h1 class="panel-title"><%= link_to "#{c.name}", category_path(c)%></h1>
+                
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <h5>No Categories Available</h5>
+      <% end %>
+    </div>
+</div>

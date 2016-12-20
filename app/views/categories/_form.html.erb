@@ -1,0 +1,21 @@
+<div class="container" align="center">
+  <%= form_for @category do |c| %>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <%= c.label :name %>
+              <%= c.text_field :name, placeholder: "Category name", class: "form-control" %>
+              <hr>
+              <%= c.submit 'Add Category', class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

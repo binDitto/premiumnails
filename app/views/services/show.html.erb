@@ -1,0 +1,23 @@
+<div class="container">
+
+    <%= link_to 'Back', services_path, class: "btn btn-lg btn-default" %>
+  <% if logged_in? %>
+    <%= link_to 'Edit', edit_service_path(@service), class: "btn btn-primary " %>
+    <%= link_to 'Delete', service_path(@service), method: :delete,
+                                            data: { confirm: "Are you sure?" },
+                                            class: "btn btn-primary btn-danger" %>
+  <% end %>
+
+    <hr>
+    <h1>Show Page</h1>
+    <hr>
+    <h4><%= @service.name %> <span class="pull-right"><%= @service.price %></h4>
+    <hr>
+    <p>
+      <%= @service.description %>
+    </p>
+
+  <small>Created <%= time_ago_in_words(@service.created_at) %> ago</small>
+
+
+</div>

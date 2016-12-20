@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   resources 'posts' do
     resources 'comments', only: [ :create, :destroy]
   end
-  
-  resources 'users', except: 'new'
 
+  resources 'users', except: 'new'
+  resources :categories, except: [:destroy]
+  resources 'services'
 
   get 'signup', to: 'users#new'
 
