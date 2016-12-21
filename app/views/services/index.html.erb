@@ -10,6 +10,7 @@
           <tr>
             <th>Name</th>
             <th>Price</th>
+            <th>Category</th>
             <% if logged_in? %>
               <th>Actions</th>
             <% end %>
@@ -19,6 +20,11 @@
           <tr>
             <th><%= link_to "#{service.name}", service_path(service) %></th>
             <td><%= number_to_currency(service.price) %></td>
+            <td>
+              <% service.categories.each do |scat| %>
+                <%= link_to "#{scat.name}", category_path(scat), class: "label label-default" %>
+              <% end %>
+            </td>
             <% if logged_in? %>
               <th>
                 <%= link_to 'Edit', edit_service_path(service), class: "btn btn-primary" %>

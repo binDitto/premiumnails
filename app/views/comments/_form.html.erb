@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <hr>
-  <%= form_for [parent, parent.comments.build] do |comment| %>
+  <%= form_for [obj, obj.comments.build] do |comment| %>
     <%= comment.text_area :description, class: "form-control", placeholder: "What's your comment?" %>
     <br/>
     <%= comment.submit 'Post Comment', class: "enterlist btn btn-default" %>

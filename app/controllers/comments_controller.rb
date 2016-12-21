@@ -14,9 +14,9 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:success] = "Thanks for commenting"
       respond_to do |format|
-        if @comment.post
+        if params[:post_id]
           format.html { redirect_to posts_path }
-        elsif @comment.service
+        elsif params[:service_id]
           format.html { redirect_to services_path }
         end
         format.js #we'll use this later for AJAX!
@@ -42,10 +42,10 @@ class CommentsController < ApplicationController
     @comment = @parent.comments.find(params[:id])
     @comment.destroy
     flash[:danger] = "comment deleted"
-    if @parent = Post.find(id)
+    if params[:post_id]
      redirect_to posts_path
-    else
-     redirect_to services_path
+    elsif params[:service_id]
+     redirect_to service_path(Service.find(params[:service_id]))
     end
 
   end

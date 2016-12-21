@@ -1,0 +1,47 @@
+<!-- Comment Showing Section -->
+<% if commentobj.comments.length > 0 %>
+
+  <br/>
+    <ul class="list-group">
+        <hr>
+        <button class="showcomments btn btn-default" align="center"> Show Comments </button>
+      <% commentobj.comments.each do |comment| %>
+        <li class="list-group-item showlist">
+              <% args= (comment.user == current_user) ? "danger" : "primary" %>
+              <small class="pull-left label label-<%= args %>">
+                <%= comment.user.username %>:
+              </small>
+              <!-- Start Action Box for Comments -->
+                  <ul class="nav navbar-nav navbar-right actions-box">
+                    <li class="dropdown actions">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                      ...
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <% if logged_in? && comment.user == current_user %>
+                          <%= link_to 'delete', [commentobj, comment], data: { confirm: 'Are you sure?'},
+                                                              method: :delete,
+                                                              class: "label label-danger comment-delete" %>
+                        <% end %>
+                      </li>
+                    </ul>
+                    </li>
+                    </ul>
+
+              <!-- End -->
+                <small class="pull-right">
+                  <%= time_ago_in_words(comment.created_at) %> ago
+                </small>
+              <br/>
+              <%= comment.description %>
+
+        </li>
+      <% end %>
+    </ul>
+<% end %>
+<!-- End -->
