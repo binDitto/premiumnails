@@ -19,6 +19,15 @@
             <%= s.label :description %>
             <%= s.text_area :description, class: "form-control", placeholder: "Description" %>
           </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-offset-2 col-sm-8">
+                <%= s.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+                  <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+                <% end %>
+              </div>
+            </div>
+          </div>
           <hr>
             <%= s.submit 'Post', class: "btn btn-primary btn-success" %>
             <%= link_to 'Back', services_path, class: "btn btn-primary btn-default" %>

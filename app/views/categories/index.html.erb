@@ -15,8 +15,8 @@
           <div class="col-sm-6 col-md-4">
             <div class="panel panel-default">
               <div class="panel-heading" align="center">
-                <h1 class="panel-title"><%= link_to "#{c.name}", category_path(c)%></h1>
-                
+                <h1 class="label label-default"><%= cat.services.length %></h1>
+                <h1 class="panel-title"><%= link_to "#{cat.name}", category_path(cat)%></h1>
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@
       <div class="panel panel-default">
 
         <div class="panel-heading" align="center">
-          
+
           <div>
             <h1 class="panel-title"><%= link_to "#{p.title}", post_path(p) %></h1>
             <small><%= time_ago_in_words(p.created_at) %> ago</small><br/>
@@ -60,14 +60,7 @@
               </ul>
           <% end %>
 
-          <% if logged_in? %>
-            <hr>
-            <%= form_for [p, p.comments.build] do |c| %>
-              <%= c.text_area :description, class: "form-control", placeholder: "What's your comment?" %>
-              <br/>
-              <%= c.submit 'Post Comment', class: "enterlist btn btn-default" %>
-            <% end %>
-          <% end %>
+          <%= render "comments/form", parent: p %>
 
             <% if logged_in? && current_user == p.user %>
               <hr>

@@ -11,6 +11,7 @@ class ServicesController < ApplicationController
 
   def create
     @service = Service.new(service_params)
+    @service.user = current_user if current_user && logged_in?
 
     if @service.save
       flash[:success] = "Service added"
@@ -48,7 +49,7 @@ class ServicesController < ApplicationController
 
   private
     def service_params
-      params.require(:service).permit(:name, :description, :price)
+      params.require(:service).permit(:name, :description, :price, category_ids: [])
     end
 
     def def_service

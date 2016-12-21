@@ -4,20 +4,29 @@
       <%= link_to 'Add A Service', new_service_path, class: "btn btn-success" %>
     <% end %>
     <hr>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th></th>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+    <% @services.each do |service| %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <% if logged_in? %>
+              <th>Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><%= link_to "#{service.name}", service_path(service) %></th>
+            <td><%= number_to_currency(service.price) %></td>
+            <% if logged_in? %>
+              <th>
+                <%= link_to 'Edit', edit_service_path(service), class: "btn btn-primary" %>
+                <%= link_to 'Delete', service_path(service), method: :delete, class: "btn btn-danger" %>
+              </th>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
 </div>

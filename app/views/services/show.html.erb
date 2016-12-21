@@ -11,13 +11,43 @@
     <hr>
     <h1>Show Page</h1>
     <hr>
-    <h4><%= @service.name %> <span class="pull-right"><%= @service.price %></h4>
+    <h4><%= @service.name %> <span class="pull-right"><%= number_to_currency(@service.price) %></h4>
     <hr>
     <p>
       <%= @service.description %>
     </p>
 
-  <small>Created <%= time_ago_in_words(@service.created_at) %> ago</small>
+    <small>Created <%= time_ago_in_words(@service.created_at) %> ago</small>
+
+    <% if @service.comments.length > 0 %>
+      <hr>
+        <ul class="list-group">
+          <button class="showcomments btn btn-default" align="center"> Show Comments </button>
+            <% @service.comments.each do |comment| %>
+              <li class="list-group-item showlist">
+                <% args= (comment.user == current_user) ? "danger" : "primary" %>
+                <small class="pull-left label label-<%= args %>">
+                  <%= comment.user.username %>
+                </small>
+                <% if logged_in? & comment.user == current_user %>
+                  <small class="pull-right">
+                    <%= link_to 'delete', [@service, comment], data: {confirm: 'Are you sure?'},
+                                                               method: :delete,
+                                                               class: "label label-danger comment-delete" %>
+                  </small>
+                <% end %>
+                <p>
+                  <%= comment.description %>
+                  <small>
+                    <%= time_ago_in_words(comment.created_at)%> ago
+                  </small>
+                </p>
+              </li>
+            <% end %>
+        </ul>
+    <% end %>
+
+    <%= render 'comments/form', parent: @service %>
 
 
 </div>

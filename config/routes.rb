@@ -2,13 +2,13 @@ Rails.application.routes.draw do
 
   root 'main#index'
 
-  resources 'posts' do
+  resources :posts, :services do
     resources 'comments', only: [ :create, :destroy]
   end
 
   resources 'users', except: 'new'
   resources :categories, except: [:destroy]
-  resources 'services'
+
 
   get 'signup', to: 'users#new'
 

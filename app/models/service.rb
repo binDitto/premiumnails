@@ -1,5 +1,6 @@
 class Service < ApplicationRecord
   belongs_to :user
+  has_many :comments, as: :commentable
   has_many :service_categories
   has_many :categories, through: :service_categories
 

@@ -1,29 +1,53 @@
 class CommentsController < ApplicationController
 
   def create
-    @comment = Comment.new(secure_params)
-    @comment.post = Post.find(params[:post_id])
+    id = params[:post_id] || params[:service_id]
+    if params[:post_id]
+      @parent = Post.find(id)
+    elsif params[:service_id]
+      @parent = Service.find(id)
+    end
+
+    @comment = @parent.comments.new(secure_params)
     @comment.user = current_user if current_user
 
     if @comment.save
       flash[:success] = "Thanks for commenting"
       respond_to do |format|
-        format.html { redirect_to posts_path }
+        if @comment.post
+          format.html { redirect_to posts_path }
+        elsif @comment.service
+          format.html { redirect_to services_path }
+        end
         format.js #we'll use this later for AJAX!
       end
     else
       flash[:danger] = "Comment failed to go through"
-      redirect_to posts_path
+      if @parent = Post.find(id)
+        redirect_to posts_path
+      else
+        redirect_to services_path
+      end
     end
 
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.post = Post.find(params[:post_id])
+    id = params[:post_id] || params[:service_id]
+      if params[:post_id]
+        @parent = Post.find(id)
+      elsif params[:service_id]
+        @parent = Service.find(id)
+      end
+    @comment = @parent.comments.find(params[:id])
     @comment.destroy
     flash[:danger] = "comment deleted"
-    redirect_to posts_path
+    if @parent = Post.find(id)
+     redirect_to posts_path
+    else
+     redirect_to services_path
+    end
+
   end
 
   private

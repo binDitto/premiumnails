@@ -1,0 +1,39 @@
+
+<div class="container" align="center">
+
+  <div class="row">
+    <% if @category.services.length > 0 %>
+    <% @category.services.each do |catserv| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="panel panel-default">
+
+        <div class="panel-heading" align="center">
+
+          <div>
+            <h1 class="panel-title"><%= link_to "#{catserv.name}", service_path(catserv) %></h1>
+            <small><%= time_ago_in_words(catserv.created_at) %> ago</small><br/>
+
+          </div>
+        </div>
+        <div class="panel-body" align="center" >
+          <p>
+            <%= truncate(catserv.description, length: 200)  %><br/>
+            <% if catserv.description.length > 200 %>
+              <%= link_to "Read More", category_path(catserv), class: "label label-default" %>
+            <% end %>
+          </p>
+          <hr>
+          <small>by <%= link_to "#{catserv.user.username}", user_path(catserv.user) %></small>
+        </div>
+
+      </div>
+    </div>
+    <% end %>
+    <% else %>
+      <h2>No posts yet.</h2>
+    <% end %>
+
+  </div>
+
+
+</div>
