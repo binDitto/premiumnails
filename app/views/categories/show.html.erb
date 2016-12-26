@@ -19,7 +19,7 @@
           <p>
             <%= truncate(catserv.description, length: 200)  %><br/>
             <% if catserv.description.length > 200 %>
-              <%= link_to "Read More", category_path(catserv), class: "label label-default" %>
+              <%= link_to "Read More", service_path(catserv), class: "label label-default" %>
             <% end %>
           </p>
           <hr>

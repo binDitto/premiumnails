@@ -43,9 +43,9 @@ class CommentsController < ApplicationController
     @comment.destroy
     flash[:danger] = "comment deleted"
     if params[:post_id]
-     redirect_to posts_path
+     redirect_to post_path(params[:post_id])
     elsif params[:service_id]
-     redirect_to service_path(Service.find(params[:service_id]))
+     redirect_to service_path(params[:service_id])
     end
 
   end
